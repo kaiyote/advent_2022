@@ -63,6 +63,10 @@ defmodule Advent2022.Day1 do
     |> String.trim()
     |> String.split(~r/\n\n/, trim: true)
     |> Enum.map(&(&1 |> String.trim() |> String.split(~r/\n/, trim: true)))
-    |> Enum.map(&(&1 |> Enum.map(fn s -> s |> String.trim() |> String.to_integer() end) |> Enum.sum()))
+    |> Enum.map(
+      &(&1
+        |> Enum.map(fn s -> s |> String.trim() |> String.to_integer() end)
+        |> Enum.sum())
+    )
   end
 end

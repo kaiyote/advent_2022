@@ -1,4 +1,3 @@
-
 defmodule Advent2022 do
   @moduledoc false
 
