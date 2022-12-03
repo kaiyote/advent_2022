@@ -22,7 +22,8 @@ defmodule Advent2022.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: [:dev, :test]},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:mix_test_interactive, "~> 1.2", only: [:dev, :test]}
     ]
   end
 end

@@ -14,7 +14,7 @@ defmodule Advent2022.Day2 do
   def part1(input) do
     input
     |> prepare_input()
-    |> Enum.map(&(round_score(&1)))
+    |> Enum.map(&round_score/1)
     |> Enum.sum()
   end
 
@@ -31,8 +31,8 @@ defmodule Advent2022.Day2 do
   def part2(input) do
     input
     |> prepare_input()
-    |> Enum.map(fn ([them, you]) -> [them, win_to_move(them, you)] end)
-    |> Enum.map(&(round_score(&1)))
+    |> Enum.map(fn [them, you] -> [them, win_to_move(them, you)] end)
+    |> Enum.map(&round_score/1)
     |> Enum.sum()
   end
 
@@ -65,6 +65,7 @@ defmodule Advent2022.Day2 do
       _ -> "Y"
     end
   end
+
   defp win_to_move("B", you) do
     case you do
       "X" -> "X"
@@ -72,6 +73,7 @@ defmodule Advent2022.Day2 do
       _ -> "Z"
     end
   end
+
   defp win_to_move("C", you) do
     case you do
       "X" -> "Y"
