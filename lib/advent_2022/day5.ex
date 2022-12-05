@@ -22,8 +22,7 @@ defmodule Advent2022.Day5 do
 
     instructions
     |> Enum.reduce(stacks, &process_instruction/2)
-    |> Enum.map(&List.first/1)
-    |> Enum.join()
+    |> Enum.map_join(&List.first/1)
   end
 
   @doc ~S"""
@@ -47,8 +46,7 @@ defmodule Advent2022.Day5 do
 
     instructions
     |> Enum.reduce(stacks, &process_instruction_upgraded/2)
-    |> Enum.map(&List.first/1)
-    |> Enum.join()
+    |> Enum.map_join(&List.first/1)
   end
 
   @spec prepare_input(String.t()) :: any()
@@ -78,13 +76,14 @@ defmodule Advent2022.Day5 do
         &(&1
           |> String.trim()
           |> String.split(" ", trim: true)
-          |> (fn [_, count, _, source, _, target] ->
-                [count, source, target] |> Enum.map(fn n -> String.to_integer(n) end)
-              end).())
+          |> instruction_to_numbers())
       )
 
     [stacks, parsed_instructions]
   end
+
+  defp instruction_to_numbers([_, count, _, source, _, target]),
+    do: [count, source, target] |> Enum.map(fn n -> String.to_integer(n) end)
 
   defp transpose(rows) do
     rows
@@ -111,7 +110,7 @@ defmodule Advent2022.Day5 do
 
     moving =
       Enum.take(source, num)
-      |> (fn moving -> if upgraded, do: moving, else: Enum.reverse(moving) end).()
+      |> maybe_reverse(not upgraded)
 
     source = Enum.drop(source, num)
     target = moving ++ target
@@ -120,4 +119,6 @@ defmodule Advent2022.Day5 do
     |> List.replace_at(from - 1, source)
     |> List.replace_at(to - 1, target)
   end
+
+  defp maybe_reverse(list, reverse), do: if(reverse, do: Enum.reverse(list), else: list)
 end

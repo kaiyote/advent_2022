@@ -55,7 +55,7 @@ defmodule Advent2022.Day4 do
         |> Enum.map(fn elf ->
           elf
           |> String.split("-", trim: true)
-          |> (fn [a, b] -> Range.new(String.to_integer(a), String.to_integer(b)) end).()
+          |> tuple_to_range()
         end))
     )
   end
@@ -71,4 +71,7 @@ defmodule Advent2022.Day4 do
       (range_b.first <= range_a.first and range_b.last >= range_a.first) or
       (range_b.first <= range_a.last and range_b.last >= range_a.last)
   end
+
+  defp tuple_to_range([first, last]),
+    do: Range.new(String.to_integer(first), String.to_integer(last))
 end

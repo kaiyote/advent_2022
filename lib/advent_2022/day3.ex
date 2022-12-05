@@ -67,8 +67,9 @@ defmodule Advent2022.Day3 do
     elf_3_chunks = elf_3 |> String.split("", trim: true)
 
     elf_1_chunks
-    |> Enum.reject(fn c -> not Enum.member?(elf_2_chunks, c) end)
-    |> Enum.reject(fn c -> not Enum.member?(elf_3_chunks, c) end)
+    |> Enum.reject(fn c ->
+      not Enum.member?(elf_2_chunks, c) or not Enum.member?(elf_3_chunks, c)
+    end)
     |> Enum.at(0)
   end
 
