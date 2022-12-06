@@ -44,12 +44,15 @@ defmodule Advent2022.Day2 do
     |> Enum.chunk_every(2)
   end
 
+  @spec round_score([String.t()]) :: integer()
   defp round_score([them, you]), do: win_score(them, you) + move_score(you)
 
+  @spec move_score(String.t()) :: integer()
   defp move_score("X"), do: 1
   defp move_score("Y"), do: 2
   defp move_score("Z"), do: 3
 
+  @spec win_score(String.t(), String.t()) :: integer()
   defp win_score("A", "Y"), do: 6
   defp win_score("B", "Z"), do: 6
   defp win_score("C", "X"), do: 6
@@ -58,6 +61,7 @@ defmodule Advent2022.Day2 do
   defp win_score("C", "Z"), do: 3
   defp win_score(_, _), do: 0
 
+  @spec win_to_move(String.t(), String.t()) :: String.t()
   defp win_to_move("A", you) do
     case you do
       "X" -> "Z"

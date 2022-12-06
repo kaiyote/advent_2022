@@ -82,15 +82,18 @@ defmodule Advent2022.Day5 do
     [stacks, parsed_instructions]
   end
 
+  @spec instruction_to_numbers([String.t()]) :: [integer()]
   defp instruction_to_numbers([_, count, _, source, _, target]),
     do: [count, source, target] |> Enum.map(fn n -> String.to_integer(n) end)
 
+  @spec transpose([[any()]]) :: [[any()]]
   defp transpose(rows) do
     rows
     |> List.zip()
     |> Enum.map(&Tuple.to_list/1)
   end
 
+  @spec pad([String.t()], integer()) :: [String.t()]
   defp pad(list, len) do
     if Enum.count(list) == len, do: list, else: pad(list ++ [""], len)
   end
@@ -103,6 +106,7 @@ defmodule Advent2022.Day5 do
   defp process_instruction_upgraded([num, from, to], stacks),
     do: reorder_stacks([num, from, to], stacks, true)
 
+  @spec reorder_stacks([integer()], [[String.t()]], true | false):: [[String.t()]]
   defp reorder_stacks([num, from, to], stacks, upgraded) do
     # from and to are 1-indexed, gotta make em 0-indexed for this to work
     source = Enum.at(stacks, from - 1)
@@ -120,5 +124,6 @@ defmodule Advent2022.Day5 do
     |> List.replace_at(to - 1, target)
   end
 
+  @spec maybe_reverse([any()], true | false) :: [any()]
   defp maybe_reverse(list, reverse), do: if(reverse, do: Enum.reverse(list), else: list)
 end

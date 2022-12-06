@@ -17,9 +17,7 @@ defmodule Advent2022.Day6 do
     1623
   """
   @spec part1(String.t()) :: integer()
-  def part1(input) do
-    process(input, 4)
-  end
+  def part1(input), do: process(input, 4)
 
   @doc ~S"""
     iex> part2("mjqjpqmgbljsphdztnvjfqwrcgsmlb")
@@ -37,9 +35,7 @@ defmodule Advent2022.Day6 do
     3774
   """
   @spec part2(String.t()) :: integer()
-  def part2(input) do
-    process(input, 14)
-  end
+  def part2(input), do: process(input, 14)
 
   @spec prepare_input(String.t(), integer()) :: [[String.t()]]
   defp prepare_input(input, len) do
@@ -48,6 +44,7 @@ defmodule Advent2022.Day6 do
     |> Enum.chunk_every(len, 1)
   end
 
+  @spec process(String.t(), integer()) :: integer()
   defp process(input, len) do
     input
     |> prepare_input(len)
@@ -55,5 +52,6 @@ defmodule Advent2022.Day6 do
     |> answer_len(len)
   end
 
+  @spec answer_len(integer(), integer()) :: integer()
   defp answer_len(index, len), do: index + len
 end

@@ -60,11 +60,13 @@ defmodule Advent2022.Day4 do
     )
   end
 
+  @spec contains?([Range.t()]) :: true | false
   defp contains?([range_a, range_b]) do
     (range_a.first >= range_b.first and range_a.last <= range_b.last) or
       (range_b.first >= range_a.first and range_b.last <= range_a.last)
   end
 
+  @spec overlaps?([Range.t()]) :: true | false
   defp overlaps?([range_a, range_b]) do
     (range_a.first <= range_b.first and range_a.last >= range_b.first) or
       (range_a.first <= range_b.last and range_a.last >= range_b.last) or
@@ -72,6 +74,7 @@ defmodule Advent2022.Day4 do
       (range_b.first <= range_a.last and range_b.last >= range_a.last)
   end
 
+  @spec tuple_to_range([String.t()]) :: Range.t()
   defp tuple_to_range([first, last]),
     do: Range.new(String.to_integer(first), String.to_integer(last))
 end
