@@ -106,7 +106,7 @@ defmodule Advent2022.Day5 do
   defp process_instruction_upgraded([num, from, to], stacks),
     do: reorder_stacks([num, from, to], stacks, true)
 
-  @spec reorder_stacks([integer()], [[String.t()]], true | false):: [[String.t()]]
+  @spec reorder_stacks([integer()], [[String.t()]], true | false) :: [[String.t()]]
   defp reorder_stacks([num, from, to], stacks, upgraded) do
     # from and to are 1-indexed, gotta make em 0-indexed for this to work
     source = Enum.at(stacks, from - 1)

@@ -48,7 +48,7 @@ defmodule Advent2022.Day6 do
   defp process(input, len) do
     input
     |> prepare_input(len)
-    |> Enum.find_index(fn (chunk) -> (chunk |> Enum.frequencies() |> Map.keys() |> Enum.count()) == len end)
+    |> Enum.find_index(&(Enum.count(&1) == Enum.count(Enum.uniq(&1))))
     |> answer_len(len)
   end
 
