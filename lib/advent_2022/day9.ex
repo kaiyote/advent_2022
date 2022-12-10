@@ -54,21 +54,31 @@ defmodule Advent2022.Day9 do
   def part2(input) do
     input
     |> prepare_input()
-    |> Enum.reduce([{0, 0}], &process/2) # H
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 1
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 2
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 3
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 4
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 5
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 6
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 7
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 8
-    |> Enum.scan({0, 0}, &make_adjacent/2) # 9
+    # H
+    |> Enum.reduce([{0, 0}], &process/2)
+    # 1
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 2
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 3
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 4
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 5
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 6
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 7
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 8
+    |> Enum.scan({0, 0}, &make_adjacent/2)
+    # 9
+    |> Enum.scan({0, 0}, &make_adjacent/2)
     |> Enum.uniq()
     |> Enum.count()
   end
 
-  @spec prepare_input(String.t()) :: any()
+  @spec prepare_input(String.t()) :: [[String.t()]]
   defp prepare_input(input) do
     input
     |> String.trim()
@@ -79,31 +89,38 @@ defmodule Advent2022.Day9 do
 
   @spec process([String.t()], [point()]) :: [point()]
   defp process(["U", len], so_far),
-    do: 1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({0, 1}, List.last(acc))] end)
+    do:
+      1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({0, 1}, List.last(acc))] end)
 
   defp process(["D", len], so_far),
-    do: 1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({0, -1}, List.last(acc))] end)
+    do:
+      1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({0, -1}, List.last(acc))] end)
 
   defp process(["L", len], so_far),
-    do: 1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({-1, 0}, List.last(acc))] end)
+    do:
+      1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({-1, 0}, List.last(acc))] end)
 
   defp process(["R", len], so_far),
-    do: 1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({1, 0}, List.last(acc))] end)
+    do:
+      1..len |> Enum.reduce(so_far, fn _, acc -> acc ++ [add_points({1, 0}, List.last(acc))] end)
 
   @spec add_points(point(), point()) :: point()
   defp add_points({x, y}, {a, b}), do: {x + a, y + b}
 
   @spec make_adjacent(point(), point()) :: point()
   defp make_adjacent({x, y}, {a, b}) when abs(x - a) <= 1 and abs(y - b) <= 1, do: {a, b}
+
   defp make_adjacent({x, y}, {a, b}) do
     diff_x = x - a
     diff_y = y - b
+    diff_x_dir = if diff_x > 0, do: 1, else: -1
+    diff_y_dir = if diff_y > 0, do: 1, else: -1
 
     cond do
       diff_x == 0 && diff_y == 0 -> {a, b}
-      diff_x == 0 -> {a, b + if(diff_y > 0, do: 1, else: -1)}
-      diff_y == 0 -> {a + if(diff_x > 0, do: 1, else: -1), b}
-      true -> {a + if(diff_x > 0, do: 1, else: -1), b + if(diff_y > 0, do: 1, else: -1)}
+      diff_x == 0 -> {a, b + diff_y_dir}
+      diff_y == 0 -> {a + diff_x_dir, b}
+      true -> {a + diff_x_dir, b + diff_y_dir}
     end
   end
 end

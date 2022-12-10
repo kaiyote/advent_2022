@@ -166,7 +166,8 @@ defmodule Advent2022.Day10 do
   end
 
   @spec signal_strength([integer()]) :: integer()
-  defp signal_strength([a, b, c, d, e, f]), do: a * 20 + b * 60 + c * 100 + d * 140 + e * 180 + f * 220
+  defp signal_strength([a, b, c, d, e, f]),
+    do: a * 20 + b * 60 + c * 100 + d * 140 + e * 180 + f * 220
 
   @doc ~S"""
     iex> part2("addx 15
